@@ -35,12 +35,6 @@ libwebview = library(
     install: true,
 )
 
-pkgconfig.generate(
-    libwebview,
-    libraries: [ webview_dependencies ],
-    description: 'Webview headers',
-)
-
 libwebview_dep = declare_dependency(
     link_with: libwebview,
     dependencies: webview_dependencies,
