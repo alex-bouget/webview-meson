@@ -39,15 +39,12 @@ jobs:
         with:
           path: ./dist
         
-      - name: copy meson.build
+      - name: Build zip
         run: |
           cp meson.build dist/meson.build
-
-      - name: compress artifact
-        run: |
           cd dist
-          for i in $(find ./ -type d); do zip -r "${i}.zip" "${i}";  done
-          cd ..
+          zip -r webview.zip webview/*
+          zip -r meson.zip meson.build
 
       - name: Create Release
         id: create_release
