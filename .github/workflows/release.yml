@@ -41,6 +41,15 @@ jobs:
           cd dist
           zip -r webview.zip webview/*
           zip -r meson.zip meson.build
+          cd ..
+      
+      - name: wrap meson
+        run: |
+          sed -i "s/_VERSION_/${ github.event.inputs.tag }/g" webview-meson.wrap
+          MESON_HASH=$(sha256sum dist/meson.zip | cut -d ' ' -f 1)*
+          sed -i "s/_MESON_HASH_/${ MESON_HASH }/g" webview-meson.wrap
+          WEBVIEW_HASH=$(sha256sum dist/webview.zip | cut -d ' ' -f 1)*
+          sed -i "s/_WEBVIEW_HASH_/${ WEBVIEW_HASH }/g" webview-meson.wrap
 
       - name: Create Release
         id: create_release
@@ -51,3 +60,4 @@ jobs:
           prerelease: false
           files: |
             ./dist/*.zip
+            webview-meson.wrap
