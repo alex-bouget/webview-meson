@@ -24,3 +24,5 @@ jobs:
           git push --tags
           # Explicitly run our release workflow for this new tag
           gh workflow run release.yml --ref latest
+        env:
+          GH_TOKEN: ${{ github.token }}
