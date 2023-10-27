@@ -37,12 +37,13 @@ jobs:
         
       - name: Build zip
         run: |
-          cp meson.build dist/meson.build
           cd dist/webview
           zip -r webview.zip .
           cd ..
           cp webview/webview.zip .
-          zip -r meson.zip meson.build
+          mkdir webview_webview-${{ github.event.inputs.tag }}
+          cp ./../meson.build webview_webview-${{ github.event.inputs.tag }}
+          zip -r meson.zip webview_webview-${{ github.event.inputs.tag }}
           cd ..
       
       - name: wrap meson
