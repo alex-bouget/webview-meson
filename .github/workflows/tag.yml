@@ -23,4 +23,4 @@ jobs:
           git tag latest
           git push --tags
           # Explicitly run our release workflow for this new tag
-          #gh workflow run release.yml --ref $new_tag
+          gh workflow run release.yml --ref latest
