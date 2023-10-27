@@ -1,5 +1,6 @@
 [wrap-file]
 directory = webview_webview-_VERSION_
+lead_directory_missing = true
 source_url = https://github.com/alex-bouget/webview-meson/releases/download/_VERSION_/webview.zip
 source_filename = webview.zip
 source_hash = _WEBVIEW_HASH_
