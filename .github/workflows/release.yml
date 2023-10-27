@@ -5,6 +5,12 @@ on:
     tags:
       - 'v*'
       - 'latest'
+  workflow_dispatch:
+    inputs:
+      tag:
+        description: 'Tag to release'
+        required: true
+        default: 'latest'
 
 jobs:
   artifact_webview:
@@ -44,6 +50,7 @@ jobs:
         id: create_release
         uses: "marvinpinto/action-automatic-releases@latest"
         with:
+          automatic_release_tag: "latest"
           repo_token: "${{ secrets.GITHUB_TOKEN }}"
           prerelease: false
           files: |
