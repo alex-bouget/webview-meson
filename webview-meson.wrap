@@ -2,7 +2,7 @@
 directory = webview_webview-0.10.0
 url = https://github.com/webview/webview.git
 revision = master
-patch_url = https://github.com
+patch_url = https://github.com/alex-bouget/webview-meson/archive/refs/tags/latest.zip
 
 [provide]
-nlohmann_json = nlohmann_json_dep
+webview = libwebview_dep

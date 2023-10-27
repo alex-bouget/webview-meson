@@ -7,18 +7,44 @@ on:
       - "latest"
 
 jobs:
+  artifact_webview:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+
+      - name: install Webview
+        run: |
+          git clone https://github.com/webview/webview.git
+          rm -rf webview/.git
+
+      - uses: actions/upload-artifact@v2
+        with:
+          name: webview
+          path: webview
+      
+      - uses: actions/upload-artifact@v2
+        with:
+          name: meson
+          path: meson.build
+
   release:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
 
+      - name: Download artifact
+        uses: actions/download-artifact@v3
+        with:
+          path: ./dist
+
+      - name: compress artifact
+        run: for i in $(find ./dist -type d); do zip -r "${i}.zip" "${i}"; done
+
       - name: Create Release
         id: create_release
-        uses: actions/create-release@v1
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }} # This token is provided by Actions, you do not need to create your own token
+        uses: "marvinpinto/action-automatic-releases@latest"
         with:
-          tag_name: ${{ github.ref }}
-          release_name: Release ${{ github.ref }}
-          draft: false
+          repo_token: "${{ secrets.GITHUB_TOKEN }}"
           prerelease: false
+          files: |
+            ./dist/*.zip
