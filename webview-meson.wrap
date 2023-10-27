@@ -2,7 +2,7 @@
 directory = webview_webview-0.10.0
 url = https://github.com/webview/webview.git
 revision = master
-patch_url = 
+patch_url = https://github.com
 
 [provide]
 nlohmann_json = nlohmann_json_dep
