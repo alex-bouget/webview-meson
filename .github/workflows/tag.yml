@@ -17,13 +17,10 @@ jobs:
           github_token: ${{ secrets.GITHUB_TOKEN }}
           tag_name: latest
 
-      - name: Create tag
-        uses: actions/github-script@v5
-        with:
-          script: |
-            github.rest.git.createRef({
-              owner: context.repo.owner,
-              repo: context.repo.repo,
-              ref: 'refs/tags/latest',
-              sha: context.sha
-            })
+      - name: New tag & launch release process
+        run: |
+          echo "Tagging latest"
+          git tag latest
+          git push --tags
+          # Explicitly run our release workflow for this new tag
+          #gh workflow run release.yml --ref $new_tag
