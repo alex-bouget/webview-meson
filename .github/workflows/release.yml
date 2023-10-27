@@ -38,8 +38,10 @@ jobs:
       - name: Build zip
         run: |
           cp meson.build dist/meson.build
-          cd dist
-          zip -r webview.zip webview/*
+          cd dist/webview
+          zip -r webview.zip .
+          cd ..
+          cp webview/webview.zip .
           zip -r meson.zip meson.build
           cd ..
       
